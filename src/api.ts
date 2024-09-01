@@ -1,22 +1,28 @@
 import axios from "axios";
 
-const apiUrl = 'http://localhost:8080/api'
+const apiUrl = 'http://localhost:8000';
 
 const api = axios.create({
-    baseURL: apiUrl
+    baseURL: apiUrl,
 });
 
 api.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('access_token')
+        const token = localStorage.getItem('access_token');
         if (token) {
-            config.headers.Authorization = `Bearer ${token}`
+            config.headers.Authorization = `Bearer ${token}`;
         }
-        return config
+        return config;
     },
-    (error) => {
-        return Promise.reject(error)
-    }
-)
+    (error) => Promise.reject(error)
+);
 
-export default api
+export const login = async (email: string, password: string) => {
+    try {
+        const response = await api.post('/auth/user/login_user/', { email, password });
+
+        return response.data;
+    } catch (error) {
+        throw new Error("Login failed");
+    }
+};

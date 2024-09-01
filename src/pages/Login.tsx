@@ -1,13 +1,22 @@
 import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import Form from "../components/Form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { login } from "../api";
 
 function Login() {
   const navigate = useNavigate();
 
-  const handleLogin = (formData: any) => {
-    console.log("Login Data:", formData);
-    navigate("/dashboard");
+  const handleLogin = async (formData: any) => {
+    try {
+      const { email, password } = formData;
+      const result = await login(email, password);
+      localStorage.setItem("access_token", result.token);
+      toast.success("Login successful!");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error("Login failed. Please check your credentials and try again.");
+    }
   };
 
   return (

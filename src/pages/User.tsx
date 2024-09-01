@@ -1,5 +1,9 @@
+import { toast } from "react-toastify";
 import Table from "../components/Table";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+const apiUrl = "http://localhost:8000";
 
 interface UserData {
   id: number;
@@ -13,28 +17,22 @@ interface UserData {
 }
 
 const User: React.FC = () => {
-  const userData: UserData[] = [
-    {
-      id: 1,
-      first_name: "John",
-      last_name: "Doe",
-      email: "john.doe@example.com",
-      phone: "123343",
-      dob: "1990-01-01",
-      gender: "Male",
-      address: "123 Main St",
-    },
-    {
-      id: 2,
-      first_name: "John",
-      last_name: "Smith",
-      email: "john.smith@example.com",
-      phone: "123343",
-      dob: "1990-01-01",
-      gender: "Male",
-      address: "123 Main St",
-    },
-  ];
+  const [userData, setUserData] = useState<UserData[]>([]);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(`${apiUrl}/auth/user/get_users/`);
+        console.log("Response:", response.data);
+        setUserData(response.data.data);
+      } catch (error) {
+        toast.error("Error fetching users.");
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const userColumns = [
     {
