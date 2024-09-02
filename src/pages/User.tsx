@@ -39,12 +39,8 @@ const User: React.FC = () => {
       header: "ID",
     },
     {
-      accessorKey: "first_name",
+      accessorKey: "full_name",
       header: "First Name",
-    },
-    {
-      accessorKey: "last_name",
-      header: "Last Name",
     },
     {
       accessorKey: "email",

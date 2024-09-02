@@ -15,6 +15,7 @@ import ProtectedRoute from "./components/Auth/ProtectedRoute";
 import { AuthProvider } from "./components/Auth/AuthContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
                 <Sidebar>
                   <Routes>
                     <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/profile" element={<Profile />} />
                     <Route path="/user" element={<User />} />
                     <Route path="/artist" element={<Artist />} />
                     <Route path="/songs" element={<Song />} />

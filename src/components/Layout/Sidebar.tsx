@@ -25,6 +25,11 @@ const Sidebar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       icon: <FaUserAlt />,
     },
     {
+      path: "/profile",
+      name: "Profile",
+      icon: <FaUserAlt />,
+    },
+    {
       path: "/artist",
       name: "Artist",
       icon: <FaRegChartBar />,
