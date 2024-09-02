@@ -7,11 +7,18 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useAuth } from "../Auth/AuthContext";
 
 const Sidebar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const handleLogout = () => {
+    localStorage.removeItem("access_token");
+
+    toast.success("Successfully logged out!");
+
     navigate("/login");
   };
 
@@ -78,7 +85,7 @@ const Sidebar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           </div>
           <div className="px-3 pb-3 w-100">
             <button
-              onClick={handleLogout}
+              onClick={logout}
               className="btn btn-danger w-100 d-flex align-items-center justify-content-center"
               style={{ padding: "10px 15px" }}
             >

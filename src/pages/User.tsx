@@ -23,7 +23,6 @@ const User: React.FC = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(`${apiUrl}/auth/user/get_users/`);
-        console.log("Response:", response.data);
         setUserData(response.data.data);
       } catch (error) {
         toast.error("Error fetching users.");

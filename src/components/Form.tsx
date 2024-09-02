@@ -17,6 +17,7 @@ const Form: React.FC<FormProps> = ({ type, onSubmit }) => {
     dob: "",
     gender: "",
     address: "",
+    role: "",
   });
   const navigate = useNavigate();
 
@@ -113,6 +114,16 @@ const Form: React.FC<FormProps> = ({ type, onSubmit }) => {
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
+          </select>
+          <select
+            className="form-select mb-4 mx-5 w-100"
+            aria-label="Default select example"
+            name="role"
+            onChange={handleChange}
+          >
+            <option value="">Select Role</option>
+            <option value="artist_manager">Artist Manager</option>
+            <option value="artist">Artist</option>
           </select>
         </>
       )}

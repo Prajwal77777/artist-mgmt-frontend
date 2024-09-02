@@ -2,7 +2,7 @@ import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
 import Form from "../components/Form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login } from "../api";
+import { login } from "../services/api";
 
 function Login() {
   const navigate = useNavigate();
