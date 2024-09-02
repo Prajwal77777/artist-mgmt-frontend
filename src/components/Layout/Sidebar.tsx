@@ -11,16 +11,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "../Auth/AuthContext";
 
 const Sidebar: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const navigate = useNavigate();
   const { logout } = useAuth();
-
-  const handleLogout = () => {
-    localStorage.removeItem("access_token");
-
-    toast.success("Successfully logged out!");
-
-    navigate("/login");
-  };
 
   const menuItem = [
     {

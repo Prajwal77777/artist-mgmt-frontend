@@ -19,20 +19,24 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-    !!localStorage.getItem("access_token")
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const login = async (email: string, password: string) => {
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const login = async (email: string, password: string): Promise<void> => {
     try {
-      const data = await api.login(email, password);
-      localStorage.setItem("access_token", data.token);
+      const result = await api.login(email, password);
+      localStorage.setItem("access_token", result.token);
       setIsAuthenticated(true);
       navigate("/dashboard");
     } catch (error) {
-      setIsAuthenticated(false);
-      throw new Error("Login failed");
+      console.error("Login failed:", error);
     }
   };
 
@@ -41,13 +45,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
     setIsAuthenticated(false);
     navigate("/login");
   };
-
-  useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      setIsAuthenticated(true);
-    }
-  }, []);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
